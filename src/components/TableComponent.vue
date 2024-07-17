@@ -35,6 +35,7 @@ import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast";
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
+
 import UpdateTodoDialog from"./UpdateTodoDialog.vue"
 
 const selectedIdex=ref(-1);
@@ -61,8 +62,6 @@ const confirmDeleteDialog = () => {
         }
     });
 };
-
-
 
 </script>
 <style>

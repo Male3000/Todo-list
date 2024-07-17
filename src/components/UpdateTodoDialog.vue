@@ -1,5 +1,4 @@
 <!-- eslint-disable vue/no-mutating-props -->
-
 <template>
   <div class="card flex justify-content-center">
     <Button label="Update" @click="onOpenDialog()" severity="danger"/>
