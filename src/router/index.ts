@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import CreateView from '@/views/CreateTodoView.vue'
-import UpdateView from '@/views/UpdateTodoView.vue'
+// import CreateView from '@/views/CreateTodoView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,22 +10,22 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    {
-      path: '/update/:id',
-      name: 'update-list',
+    // {
+    //   path: '/update/:id',
+    //   name: 'update-list',
+    //   // route level code-splitting
+    //   // this generates a separate chunk (About.[hash].js) for this route
+    //   // which is lazy-loaded when the route is visited.
+    //   component: UpdateView
+    // },
+        // {
+      // path: '/create',
+      // name: 'create-list',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: UpdateView
-    },
-        {
-      path: '/create',
-      name: 'create-list',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: CreateView
-    }
+      // component: CreateView
+    // }
         // {
     //   path: '/about',
     //   name: 'about',

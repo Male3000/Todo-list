@@ -1,6 +1,5 @@
 import './assets/main.css'
 import '/node_modules/primeflex/primeflex.css'
-import 'primeicons/primeicons.css';
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -17,13 +16,17 @@ import InputText from 'primevue/inputtext'
 import Select from 'primevue/select';
 import Textarea from 'primevue/textarea';
 import DatePicker from 'primevue/datepicker';
+import Dropdown from 'primevue/dropdown';
+import { createPinia } from 'pinia'
+
 const app = createApp(App)
+const pinia =createPinia()
 app.use(PrimeVue, {
     theme:{
         preset:Aura
     }
 })
-
+app.use(pinia)
 app.use(ConfirmationService)
 app.use(ToastService)
 app.use(DialogService)
@@ -35,6 +38,7 @@ app.component("InputText", InputText);
 app.component("Select", Select);
 app.component("Textarea", Textarea);
 app.component("DatePicker", DatePicker);
+app.component("DropDown", Dropdown)
 // app.component("FloatLabel", FloatLabel);
 
 app.mount('#app')

@@ -17,7 +17,7 @@
                 <template #body="{ index }">
                     <div class="flex gap-4">
                         <Button @click="confirmDeleteDialog(); selectedIdex=index">Delete</Button>
-                        <UpdateTodoDialog :items="data" :index="index"/>
+                        <Button @click="$router.push({path:`/update/${index}`})"/>
                     </div>
                 </template>
             </Column>
@@ -35,8 +35,8 @@ import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast";
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
+import type path from 'path';
 
-import UpdateTodoDialog from"./UpdateTodoDialog.vue"
 
 const selectedIdex=ref(-1);
 defineProps(['data']);
