@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="updateTask">
+    <form @submit.prevent="onSubmit">
       <div class="flex flex-column gap-4 card">
         <InputTextC v-model="task.taskName" label="Code" />
         <InputTextC v-model="task.taskCode" label="Name" />
@@ -47,11 +47,34 @@ import {useTodoTaskStore} from '../stores/todo.task.store'
 import router from '@/router'
 const taskStore=useTodoTaskStore()
 const task=ref<Data>({...taskStore.getTaskToUpdate});
-const updateTask=()=>{
-  taskStore.updateTask(task.value)
-  onRouteBack()
-}
 const onRouteBack=()=>{
   router.push('/')
 }
+
+
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
+
+const { handleSubmit } = useForm({
+  validationSchema: yup.object({
+    Code: yup.string().required(),
+    Name: yup.string().required(),
+    Priority:yup.string().required(),
+    Status:yup.string().required(),
+    Date: yup.date().required(),
+  }),
+  initialValues:{
+    Code: task.value.taskCode,
+    Name: task.value.taskName,
+    Priority:task.value.priority,
+    Status:task.value.status,
+    Date:task.value.dueDate
+  }
+})
+
+const onSubmit = handleSubmit(value=> {
+  taskStore.updateTask(task.value)
+  onRouteBack()
+})
+
 </script>

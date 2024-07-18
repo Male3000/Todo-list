@@ -1,14 +1,16 @@
 <template>
-    <div class="flex flex-column gap-4">
+    <div class="flex flex-column gap-4 relative">
         <FloatLabel>
-            <InputText :id="label" :disabled="disable" :required="required"
-            v-model="value" />
+            <InputText :id="label" :disabled="disable" :required="required" :name="label"
+            v-model="internalValue" />
             <label :for="label">{{label}}</label>
         </FloatLabel>
-  </div>
+    <div style="position: absolute; top: 2.2rem; color: red">{{ errorMessage }}</div>
+</div>
 </template>
+
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 const props=defineProps<{
     label:string,
     validate?:boolean
@@ -16,18 +18,24 @@ const props=defineProps<{
     required?:boolean
     modelValue?:any
 }>()
+const internalValue = ref(props.modelValue);
+import { useField } from 'vee-validate';
+// const { value, errorMessage } = useField(props.label, {validateOnMount:false});
+const { value, errorMessage } = useField(props.label, {
+    initialValues:props.modelValue
+});
+
 const emit=defineEmits<{
     (e: 'update:modelValue', value:any):void
 }>()
-const value=ref()
-onMounted(()=>{
-    value.value=props.modelValue
+
+watch(internalValue ,(newValue)=>{
+    emit('update:modelValue', newValue)
+    value.value=newValue
 })
-watch(value,(newValue)=>{
-    emit('update:modelValue', value.value)
-})
+
 </script>
 
 <style>
 
-</style>template
+</style>

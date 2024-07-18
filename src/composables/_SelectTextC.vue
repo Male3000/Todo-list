@@ -1,10 +1,12 @@
 <template>
-    <div>
+    <div class="relative">
         <FloatLabel>
-            <DropDown i:d="label" :disabled="disable" :required="required" :options="options"
-            v-model="value" :optionLabel="optionLabel" :optionValue="optionValue" :class="class" />
+            <DropDown id="label" :disabled="disable" :required="required" :options="options" :name="label"
+            v-model="internalValue" :optionLabel="optionLabel" :optionValue="optionValue" :class="class" />
             <label :for="label">{{label}}</label>
         </FloatLabel>
+    <div style="position: absolute; top: 2.2rem; color: red">{{ errorMessage }}</div>
+
   </div>
 </template>
 <script setup lang="ts">
@@ -21,15 +23,15 @@ const props=defineProps<{
     optionValue?:string|Function,
     class?:string
 }>()
+const internalValue = ref(props.modelValue);
+import { useField } from 'vee-validate';
+const { value, errorMessage } = useField(()=>props.label);
 const emit=defineEmits<{
     (e: 'update:modelValue', value:any):void
 }>()
-const value=ref()
-onMounted(()=>{
-    value.value=props.modelValue
-})
-watch(value,(newValue)=>{
-    emit('update:modelValue', value.value)
+watch(internalValue ,(newValue)=>{
+    emit('update:modelValue', newValue)
+    value.value=newValue
 })
 </script>
 

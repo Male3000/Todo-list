@@ -13,15 +13,15 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const op = ref()
-const toggle = (event: any) => {
-  op.value.toggle(event)
-}
 
 const emit = defineEmits<{
   (e: 'delete', value: any): void
   (e: 'update', value: any): void
 }>()
+const op = ref()
+const toggle = (event: any) => {
+  op.value.toggle(event)
+}
 
 const handleEmittingDelete = (): void => {
   op.value.hide()

@@ -1,3 +1,4 @@
+/* eslint-disable vue/multi-word-component-names */
 import './assets/main.css'
 import '/node_modules/primeflex/primeflex.css'
 import 'primeicons/primeicons.css'
@@ -43,6 +44,7 @@ app.component("Textarea", Textarea);
 app.component("DatePicker", DatePicker);
 app.component("DropDown", Dropdown)
 app.component("OverlayPanel", OverlayPanel)
+
 
 // app.component("FloatLabel", FloatLabel);
 
