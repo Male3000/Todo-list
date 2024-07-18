@@ -7,6 +7,7 @@ export type Data = {
     priority: string,
     status: string
 }
+
 export const service = {
     getObjectByKey: (arr: DefaultType[], value: string): DefaultType => {
         for (const element of arr) {

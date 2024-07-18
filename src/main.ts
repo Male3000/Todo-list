@@ -1,5 +1,7 @@
 import './assets/main.css'
 import '/node_modules/primeflex/primeflex.css'
+import 'primeicons/primeicons.css'
+
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -17,6 +19,7 @@ import Select from 'primevue/select';
 import Textarea from 'primevue/textarea';
 import DatePicker from 'primevue/datepicker';
 import Dropdown from 'primevue/dropdown';
+import OverlayPanel from 'primevue/overlaypanel';
 import { createPinia } from 'pinia'
 
 const app = createApp(App)
@@ -39,6 +42,8 @@ app.component("Select", Select);
 app.component("Textarea", Textarea);
 app.component("DatePicker", DatePicker);
 app.component("DropDown", Dropdown)
+app.component("OverlayPanel", OverlayPanel)
+
 // app.component("FloatLabel", FloatLabel);
 
 app.mount('#app')

@@ -6,15 +6,15 @@ export type DefaultType={
 export default {
     STATUS:<DefaultType[]>[
         {
-            key:"todo",
-            display:"To do"
+            key:"TODO",
+            display:"To-do"
         },
         {
-            key:"inProgress",
-            display:"In Progress"
+            key:"INPROGRESS",
+            display:"In-Progress"
         },
         {
-            key:"done",
+            key:"DONE",
             display:"Done"
         },
     ],

@@ -24,16 +24,10 @@
             </div>
         </template>
       </Column>
-      <Column header="Action">
+      <Column header="">
         <template #body="{ index }">
           <div class="flex gap-4">
-            <Button @click="$router.push({ path: `/update/${index}` })"> Update</Button>
-            <Button
-              @click="
-                confirmDeleteDialog();
-                selectedIdex = index
-              " severity="danger">Delete</Button
-            >
+            <DropDownAction @delete="confirmDeleteDialog"  @update="emitIndexToUpdate(index)" />
           </div>
         </template>
       </Column>
@@ -44,7 +38,9 @@
 </template>
 <script setup lang="ts">
 import { service } from '@/utils/main_service'
+import type { Data } from '@/utils/main_service'
 import DataTable from 'primevue/datatable'
+import DropDownAction from './DropDownAction.vue'
 import Column from 'primevue/column'
 import Button from 'primevue/button'
 import { ref } from 'vue'
@@ -52,11 +48,16 @@ import ConfirmDialog from 'primevue/confirmdialog'
 import Toast from 'primevue/toast'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
-import type path from 'path'
 import constant from '@/utils/constant'
 const selectedIdex = ref(-1)
-defineProps(['data'])
-const emit = defineEmits(['deletedIndex'])
+defineProps<{
+    data:Data[]
+}>()
+const emit = defineEmits<{
+    (e:'deletedIndex', value:number):void,
+    (e:'toUpdate', value:number):void
+}>()
+
 const confirm = useConfirm()
 const toast = useToast()
 
@@ -71,12 +72,15 @@ const confirmDeleteDialog = () => {
     acceptClass: 'p-button-danger',
     accept: () => {
       toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 })
-      emit('deletedIndex', selectedIdex.value)
+      emit('deletedIndex', selectedIdex.value);
     },
     reject: () => {
       toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 })
     }
   })
+}
+const emitIndexToUpdate=(index:number)=>{
+    emit('toUpdate', index);
 }
 </script>
 <style>

@@ -3,16 +3,16 @@
     <div>
       <Button label="Create" @click="onOpenDialog()" severity="primary" />
     </div>
-    <Dialog :visible="visible" header="Edit Profile" :style="{ width: '25rem' }">
+    <Dialog :visible="visible" header="Create Task" :style="{ width: '25rem' }">
       <template #closeicon>
         <Button plain text @click="visible = false">X</Button>
       </template>
-      <form @submit.prevent="createTask">
+      <form @submit.prevent="handleEmitCreate">
         <div class="flex flex-column gap-4 card">
-          <InputTextC v-model="task.taskName" label="Name" />
+          <InputTextC v-model="task.taskName" label="Code" />
           <InputTextC v-model="task.taskCode" label="Name" />
           <TextareaC v-model="task.desc" label="Description" />
-          <DateC v-model="task.dueDate" label="date" />
+          <DateC v-model="task.dueDate" label="Date" />
           <SelectTextC
             v-model="task.priority"
             label="Priority"
@@ -22,7 +22,7 @@
             class="w-10"
           />
           <Button label="Submit" type="submit"></Button>
-          <Button label="Cancel" type="button" @click="visible = false" severity="danger"></Button>
+          <Button label="Cancel" type="button" @click="onCloseDialog" severity="danger"></Button>
         </div>
       </form>
     </Dialog>
@@ -37,8 +37,9 @@ import InputTextC from '@/composables/_InputTextC.vue'
 import SelectTextC from '@/composables/_SelectTextC.vue'
 import TextareaC from '@/composables/_TextAreaC.vue'
 import DateC from '@/composables/_DateC.vue'
-import { useTodoTaskStore } from '@/stores/todo.task.store'
-const taskStore = useTodoTaskStore()
+const emit=defineEmits<{
+  (e:'createTask', value:Data):void
+}>()
 const defaultTaskVlue: Data = {
   taskCode: '',
   taskName: '',
@@ -49,13 +50,9 @@ const defaultTaskVlue: Data = {
 }
 const task = ref<Data>(defaultTaskVlue)
 const visible = ref(false)
-
-const createTask = () => {
-  taskStore.addTask({ ...task.value })
-  console.log(task.value);
-  
+const handleEmitCreate=()=>{
+  emit('createTask', task.value)
   task.value = defaultTaskVlue
-
   onCloseDialog()
 }
 const onCloseDialog = () => {

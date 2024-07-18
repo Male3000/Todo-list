@@ -14,18 +14,23 @@ export const useTodoTaskStore=defineStore("todoTaskStore",{
         deleteTaskByIndex(index:number):void{
             this.items.splice(index, 1);
         },
-        updateTask(index:number, newTask:Data):void{
-            this.items[index]=newTask;
+        updateTask(newTask:Data):void{
+            this.items[this.index]=newTask;
         },
-        // setIndexOfTaskToUpdate(index:number)
+        setTaskIndexToUpdate(index:number):void{
+            this.index=index;
+        }
     },
     getters: {
-        getAllTasks: (state) => {
+        getAllTasks: (state):Data[] => {
           return state.items;
         },
         getTaskByIndex: (state) => {
           return (index: number): Data | undefined => state.items[index];
         },
+        getTaskToUpdate:(state):Data=>{
+            return state.items[state.index];
+        }
       },
       
 })
