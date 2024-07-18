@@ -12,10 +12,17 @@
           <InputTextC v-model="task.taskName" label="Name" />
           <InputTextC v-model="task.taskCode" label="Name" />
           <TextareaC v-model="task.desc" label="Description" />
-          <SelectTextC v-model="task.priority" label="Priority" optionalValue="key" optionLabel="display"
-           :options="constant.PRIORITY" class="w-10"/>
-          <Button label="Submit" type="submit" />
-          <Button label="Cancel" type="button" @click="visible = false" severity="danger" />
+          <DateC v-model="task.dueDate" label="date" />
+          <SelectTextC
+            v-model="task.priority"
+            label="Priority"
+            optionValue="key"
+            optionLabel="display"
+            :options="constant.PRIORITY"
+            class="w-10"
+          />
+          <Button label="Submit" type="submit"></Button>
+          <Button label="Cancel" type="button" @click="visible = false" severity="danger"></Button>
         </div>
       </form>
     </Dialog>
@@ -29,29 +36,33 @@ import { ref } from 'vue'
 import InputTextC from '@/composables/_InputTextC.vue'
 import SelectTextC from '@/composables/_SelectTextC.vue'
 import TextareaC from '@/composables/_TextAreaC.vue'
+import DateC from '@/composables/_DateC.vue'
 import { useTodoTaskStore } from '@/stores/todo.task.store'
-const taskStore=useTodoTaskStore();
-
-const task = ref<Data>({
+const taskStore = useTodoTaskStore()
+const defaultTaskVlue: Data = {
   taskCode: '',
   taskName: '',
   desc: '',
   dueDate: undefined,
   priority: '',
   status: constant.STATUS[0].key
-})
+}
+const task = ref<Data>(defaultTaskVlue)
 const visible = ref(false)
 
 const createTask = () => {
-    taskStore.addTask(task.value);    
-    onCloseDialog();
-    
+  taskStore.addTask({ ...task.value })
+  console.log(task.value);
+  
+  task.value = defaultTaskVlue
+
+  onCloseDialog()
 }
-const onCloseDialog=()=>{
-    visible.value=false;
+const onCloseDialog = () => {
+  visible.value = false
 }
 const onOpenDialog = () => {
-  // task.value = { ...props.items[props.index] }
+  task.value = {...defaultTaskVlue}
   visible.value = true
 }
 </script>

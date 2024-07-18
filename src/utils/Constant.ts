@@ -1,10 +1,10 @@
-type StatusType={
+export type DefaultType={
     key:string,
     display:string
 }
 
 export default {
-    STATUS:<StatusType[]>[
+    STATUS:<DefaultType[]>[
         {
             key:"todo",
             display:"To do"
@@ -19,7 +19,7 @@ export default {
         },
     ],
 
-    PRIORITY:<StatusType[]>[
+    PRIORITY:<DefaultType[]>[
         {
             key:"low",
             display:"Low"
