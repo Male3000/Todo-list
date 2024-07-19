@@ -2,7 +2,7 @@
     <div class="flex flex-column gap-4 relative">
         <FloatLabel>
             <DatePicker :id="label" :disabled="disable" :required="required"
-            v-model="internalValue" />
+            v-model="internalValue"/>
             <label :for="label">{{label}}</label>
         </FloatLabel>
     <div style="position: absolute; top: 2.2rem; color: red">{{ errorMessage }}</div>

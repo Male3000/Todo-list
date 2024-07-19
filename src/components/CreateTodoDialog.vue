@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import type { Data } from '@/utils/main_service'
 import constant from '@/utils/constant'
-import { onBeforeMount, onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import InputTextC from '@/composables/_InputTextC.vue'
 import SelectTextC from '@/composables/_SelectTextC.vue'
 import TextareaC from '@/composables/_TextAreaC.vue'
@@ -47,11 +47,8 @@ const defaultTaskVlue: Data = {
   priority: '',
   status: constant.STATUS[0].key
 }
-const task = ref<Data>()
+const task = ref<Data>(defaultTaskVlue)
 const visible = ref(false)
-onMounted(() => {
-  task.value = defaultTaskVlue
-})
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 
@@ -63,23 +60,24 @@ const { handleSubmit } = useForm({
     Date: yup.date().required(),
   })
 })
-const onSubmit = handleSubmit(value=> {
+const onSubmit = handleSubmit(()=> {
   emit('createTask', task.value)
-  console.log(task.value);
-  
-  task.value = defaultTaskVlue
-  onCloseDialog()
-  console.log(value)
+  setDefultTaskValue();
+  onCloseDialog();
 })
 
+const setDefultTaskValue=()=>{
+  task.value={...defaultTaskVlue}
+}
 const onCloseDialog = () => {
   visible.value = false
-  task.value = {...defaultTaskVlue}
+  setDefultTaskValue()
 }
 const onOpenDialog = () => {
-  task.value = {...defaultTaskVlue}
   visible.value = true
+  setDefultTaskValue()
 }
+
 </script>
 
 

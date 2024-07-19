@@ -21,9 +21,7 @@ const props=defineProps<{
 const internalValue = ref(props.modelValue);
 import { useField } from 'vee-validate';
 // const { value, errorMessage } = useField(props.label, {validateOnMount:false});
-const { value, errorMessage } = useField(props.label, {
-    initialValues:props.modelValue
-});
+const { value, errorMessage } = useField(()=>props.label);
 
 const emit=defineEmits<{
     (e: 'update:modelValue', value:any):void

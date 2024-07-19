@@ -56,10 +56,8 @@ const emit = defineEmits<{
     (e:'deletedIndex', value:number):void,
     (e:'toUpdate', value:number):void
 }>()
-
 const confirm = useConfirm()
 const toast = useToast()
-
 const confirmDeleteDialog = () => {
   confirm.require({
     message: 'Do you want to delete this record?',
