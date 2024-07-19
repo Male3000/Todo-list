@@ -27,7 +27,7 @@
       <Column header="">
         <template #body="{ index }">
           <div class="flex gap-4">
-            <DropDownAction @delete="confirmDeleteDialog"  @update="emitIndexToUpdate(index)" />
+            <DropDownAction @delete="confirmDeleteDialog(); selectedIdex=index"  @update="emitIndexToUpdate(index)" />
           </div>
         </template>
       </Column>
@@ -70,6 +70,8 @@ const confirmDeleteDialog = () => {
     accept: () => {
       toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 })
       emit('deletedIndex', selectedIdex.value);
+      console.log("Index sslected", selectedIdex.value);
+      
     },
     reject: () => {
       toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 })
@@ -77,6 +79,7 @@ const confirmDeleteDialog = () => {
   })
 }
 const emitIndexToUpdate=(index:number)=>{
+  
     emit('toUpdate', index);
 }
 </script>

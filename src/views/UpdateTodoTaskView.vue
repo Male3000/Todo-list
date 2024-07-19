@@ -2,7 +2,7 @@
   <div>
     <form @submit.prevent="onSubmit">
       <div class="flex flex-column gap-4 card">
-        <InputTextC v-model="task.taskName" label="Code" />
+        <InputTextC v-model="task.taskName" label="Code"  :disable="true"/>
         <InputTextC v-model="task.taskCode" label="Name" />
         <TextareaC v-model="task.desc" label="Description" />
         <SelectTextC

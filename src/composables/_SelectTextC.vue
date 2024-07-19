@@ -5,12 +5,12 @@
             v-model="internalValue" :optionLabel="optionLabel" :optionValue="optionValue" :class="class" />
             <label :for="label">{{label}}</label>
         </FloatLabel>
-    <div style="position: absolute; top: 2.2rem; color: red">{{ errorMessage }}</div>
+    <div style="position: absolute; top: 2.2rem;" class="">{{ errorMessage }}</div>
 
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 const props=defineProps<{
     label:string,
     validate?:boolean
@@ -37,4 +37,4 @@ watch(internalValue ,(newValue)=>{
 
 <style>
 
-</style>template
+</style>

@@ -15,6 +15,7 @@ import { useTodoTaskStore } from '@/stores/todo.task.store'
 import type { Data } from '@/utils/main_service';
 const taskStore=useTodoTaskStore();
 const items=taskStore.getAllTasks
+
 const handleDeleteItem=(index:number)=>{
     taskStore.deleteTaskByIndex(index)
 }

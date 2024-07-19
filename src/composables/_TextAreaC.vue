@@ -2,14 +2,14 @@
     <div>
         <FloatLabel>
             <Textarea :id="label" :disabled="disable" :required="required" rows="5" cols="30"
-            v-model="value" />
+            v-model="internalValue" ></Textarea>
             <label :for="label">{{label}}</label>
         </FloatLabel>
   </div>
 </template>
 <script setup lang="ts">
 import Textarea from 'primevue/textarea';
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 const props=defineProps<{
     label:string,
     validate?:boolean
@@ -20,15 +20,11 @@ const props=defineProps<{
 const emit=defineEmits<{
     (e: 'update:modelValue', value:any):void
 }>()
-const value=ref()
-onMounted(()=>{
-    value.value=props.modelValue
-})
-watch(value,(newValue)=>{
-    emit('update:modelValue', value.value)
+const internalValue=ref(props.modelValue)
+watch(internalValue,(newValue)=>{
+    emit('update:modelValue', newValue)
 })
 </script>
 
-<style>
 
-</style>template
+
